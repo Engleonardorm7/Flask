@@ -1,7 +1,7 @@
 
 ## Movies API
 
-This project is a REST API made with FastAPI.
+This project is a REST API made with FLASK
 
 ### Features
 Features included:
