@@ -1,46 +1,42 @@
-
-## Movies API
-
-This project is a REST API made with FLASK
-
-### Features
-Features included:
-
-- Data validation.
-- CRUD of Movies
-- Data persistance with JSON files (JSON files as database)
+## TO DO LIST
 
 
-## Requirements:
-- Python >= 3.10
+A Flask application that allows the user to perform basic tasks on a todo list.
 
-## Installing
-1. Clone or download de repository:
-    ```
-    $ git@github.com:Engleonardorm7/Movies_CRUD_FastAPI.git
-    ```
+## Getting Started
+First, you will need to clone this repository and install the necessary dependencies.
 
-2. Open the console inside the project directory and create a virtual environment.
-    ```bash
-    $ python -m venv venv
-    $ source venv/Scripts/activate
-    ```
 
-3. Install the app
-    ```bash
-    (venv) $ pip install -r requirements.txt
-    ```
-
-## Run it locally
-```
-(venv) $ uvicorn main:app --reload
+``` 
+$ git clone https://github.com/Engleonardorm7/Flask
+$ cd Flask
+$ pip install -r requirements.txt
 ```
 
-## Basic Usage
-Once you are running the server open the [Swagger UI App](http://127.0.0.1:8000/docs#/) to checkout the API documentation.
+To start the application, run the following command:
 
-## Author
-Leonardo Rodriguez - [Github Profile](https://github.com/Engleonardorm7)
 
-## Additional notes
-The code is a program that implements the basic concepts of FastAPI to log into the application, create movies, search for movies, delete or modify movie content.
+```
+$ flask run
+```
+
+## Usage
+Once the application is running, you can access it by visiting http://localhost:5000 in your web browser.
+
+## Routes
+The following routes are available:
+
+/ - Redirects to the hello route
+/hello - Displays a todo list and a login form
+/login - Handles user authentication
+
+## Running Tests
+
+To run the test suite, use the following command:
+
+```
+$ flask test
+```
+
+## Contributing
+Bug reports and pull requests are welcome on GitHub at https://github.com/Engleonardorm7/Flask. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
