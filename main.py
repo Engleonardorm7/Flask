@@ -1,13 +1,14 @@
-from flask import request, make_response, redirect, render_template, session, url_for, flash
- 
 import unittest
+from flask import request, make_response, redirect, render_template, session, url_for, flash
+from flask_login import login_required, current_user
+
 
 from app import create_app
-from app.forms import LoginForm
+from app.forms import TodoForm, DeleteTodoForm
+from app.firestore_service import get_users, get_todos, put_todo, delete_todo
 
 app= create_app()
 
-todos=['Buy Caffe','Send purchase request', 'Do the homework']
 
 
 
@@ -38,22 +39,35 @@ def index():
     return response
 
 
-@app.route("/hello", methods=['GET','POST'])
+@app.route('/hello', methods=['GET', 'POST'])
+@login_required
 def hello():
     user_ip = session.get('user_ip')
-    login_form=LoginForm()
-    username=session.get('username')
-    context={
-        "user_ip":user_ip,
-        'todos':todos,
-        'login_form':login_form,
-        'username':username
+    username = current_user.id
+    todo_form = TodoForm()
+    delete_form = DeleteTodoForm()
+
+    context = {
+        'user_ip': user_ip,
+        'todos': get_todos(user_id=username),
+        'username': username,
+        'todo_form': todo_form,
+        'delete_form': delete_form,
     }
-    if login_form.validate_on_submit():
-        username=login_form.username.data
-        session['username']=username
 
-        flash("username registered successfully")
+    if todo_form.validate_on_submit():
+        put_todo(user_id=username, description=todo_form.description.data)
 
-        return redirect(url_for('index'))
+        flash('Task created successfully')
+
+        return redirect(url_for('hello'))
+
     return render_template('hello.html', **context)
+
+
+@app.route('/todos/delete/<todo_id>', methods=['POST'])
+def delete(todo_id):
+    user_id = current_user.id
+    delete_todo(user_id=user_id, todo_id=todo_id)
+
+    return redirect(url_for('hello'))
